@@ -2,6 +2,7 @@ package com.reem.taskscompose.di
 
 import android.content.Context
 import androidx.room.Room
+import com.reem.taskscompose.data.TasksDao
 import com.reem.taskscompose.data.TasksDatabase
 import com.reem.taskscompose.util.Constants.DATABASE_NAME
 import dagger.Module

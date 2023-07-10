@@ -2,9 +2,9 @@ package com.reem.taskscompose.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.RoomMasterTable.TABLE_NAME
+import com.reem.taskscompose.util.Constants.DATABASE_TABLE
 
-@Entity(tableName = TABLE_NAME)
+@Entity(tableName = DATABASE_TABLE)
 data class Task(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,

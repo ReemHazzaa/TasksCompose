@@ -8,6 +8,7 @@ import androidx.room.Query
 import androidx.room.RoomMasterTable.TABLE_NAME
 import androidx.room.Update
 import com.reem.taskscompose.data.models.Task
+import com.reem.taskscompose.util.Constants.DATABASE_TABLE
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -15,7 +16,7 @@ interface TasksDao {
     @Query("SELECT * FROM $TABLE_NAME ORDER BY id ASC")
     fun getAllTasks(): Flow<List<Task>>
 
-    @Query("SELECT * FROM $TABLE_NAME WHERE id=:taskId")
+    @Query("SELECT * FROM $DATABASE_TABLE WHERE id=:taskId")
     fun getSelectedTask(taskId: Int): Flow<Task>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -27,12 +28,16 @@ interface TasksDao {
     @Delete
     suspend fun deleteTask(task: Task)
 
-    @Query("DELETE FROM $TABLE_NAME")
+    @Query("DELETE FROM $DATABASE_TABLE")
     suspend fun deleteAllTasks()
 
-    @Query("SELECT * FROM $TABLE_NAME WHERE title LIKE :query OR description LIKE :query")
+    @Query("SELECT * FROM $DATABASE_TABLE WHERE title LIKE :query OR description LIKE :query")
     fun searchDatabase(query: String): Flow<List<Task>>
 
-    @Query("SELECT * FROM $TABLE_NAME ORDER BY CASE WHEN priority LIKE 'L%' THEN 1 WHEN priority LIKE 'M%' THEN 2 WHEN priority LIKE 'H%' THEN 3 END")
+    @Query("SELECT * FROM $DATABASE_TABLE ORDER BY CASE WHEN priority LIKE 'L%' THEN 1 WHEN priority LIKE 'M%' THEN 2 WHEN priority LIKE 'H%' THEN 3 END")
     fun sortByLowPriority(): Flow<List<Task>>
+
+    @Query("SELECT * FROM $DATABASE_TABLE ORDER BY CASE WHEN priority LIKE 'H%' THEN 1 WHEN priority LIKE 'M%' THEN 2 WHEN priority LIKE 'L%' THEN 3 END")
+    fun sortByHighPriority(): Flow<List<Task>>
+
 }
