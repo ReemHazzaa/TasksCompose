@@ -95,4 +95,8 @@ dependencies {
     // Datastore prefs
     implementation("androidx.datastore:datastore-preferences-android:1.1.0-alpha04")
 
+    // Navigation compose
+    def nav_version = "2.7.0"
+    implementation "androidx.navigation:navigation-compose:$nav_version"
+
 }
